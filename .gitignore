@@ -1,0 +1,56 @@
+# ===== Packoscope — .gitignore =====
+# Regra geral: código, configuração e metadados entram no Git.
+# Dados brutos, ambiente virtual e modelos treinados ficam de fora.
+
+# ----- Ambiente virtual / uv -----
+.venv/
+# ATENÇÃO: uv.lock NÃO é ignorado de propósito. Ele garante que os 5
+# integrantes tenham exatamente as mesmas versões de dependência (`uv sync`).
+!uv.lock
+
+# ----- Caches do Python -----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ----- Jupyter -----
+.ipynb_checkpoints/
+
+# ----- Editores / SO -----
+.vscode/
+.idea/
+.DS_Store
+
+# ----- Segredos -----
+.env
+!.env.example
+
+# ----- Dados -----
+# Os CSVs do CIC-IDS-2017 têm centenas de MB e são baixados/consolidados
+# localmente por make_dataset.py. Nunca vão para o Git.
+#
+# Usamos "/data/*" em vez de "/data/" porque o Git não entra em um diretório
+# excluído — e, se não entra, não consegue avaliar as exceções lá dentro.
+# Excluindo o CONTEÚDO de data/ ainda dá para reincluir data/sample/ abaixo.
+/data/*
+*.csv
+*.parquet
+*.pcap
+*.zip
+
+# Exceção: a amostra pequena versionada, usada para testes e para rodar os
+# notebooks sem baixar a base inteira.
+# Precisa de DUAS linhas: uma desfaz a exclusão do diretório (senão o Git nem
+# olha lá dentro), a outra desfaz a exclusão dos arquivos (*.csv/*.parquet
+# acima pegariam em qualquer nível). E ambas têm que vir DEPOIS das regras
+# que estão excetuando — vale sempre a última regra que casar.
+!/data/sample/
+!/data/sample/**
+
+# ----- Modelos treinados -----
+models/
+*.pkl
+*.joblib
