@@ -50,6 +50,10 @@ __pycache__/
 !/data/sample/
 !/data/sample/**
 
+# Exceção: a tabela de resultados da Entrega 2 (uma linha por pipeline) é
+# pequena e entra no anexo do relatório, então é versionada.
+!/resultados/*.csv
+
 # ----- Modelos treinados -----
 models/
 *.pkl
